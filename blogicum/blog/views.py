@@ -1,20 +1,8 @@
+from django.http import Http404
 from django.shortcuts import render
 
 
-def index(request):
-    return render(request, 'blog/index.html', {'posts': posts[::-1]})
-
-
-def post_detail(request, post_id):
-    return render(request, 'blog/detail.html', {'post': posts[post_id]})
-
-
-def category_posts(request, category_slug):
-    return render(request, 'blog/category.html',
-                  {'slug': category_slug})
-
-
-posts = [
+POSTS = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -56,3 +44,30 @@ posts = [
                 укутывал их, чтобы не испортились от дождя.''',
     },
 ]
+
+POSTS_DICT = {post['id']: post for post in POSTS}
+
+
+def index(request):
+    return render(request, 'blog/index.html', {'posts': POSTS[::-1]})
+
+
+def post_detail(request, post_id):
+    if post_id not in POSTS_DICT.keys():
+        raise Http404("Post not found")
+    return render(request, 'blog/detail.html', {'post': POSTS_DICT[post_id]})
+
+
+def category_posts(request, category_slug):
+    return render(request, 'blog/category.html',
+                  {'slug': category_slug})
+
+
+
+
+
+
+
+
+
+
