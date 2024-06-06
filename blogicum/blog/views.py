@@ -2,7 +2,7 @@ from django.http import Http404
 from django.shortcuts import render
 
 
-POSTS = [
+posts = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -45,11 +45,11 @@ POSTS = [
     },
 ]
 
-POSTS_DICT = {post['id']: post for post in POSTS}
+POSTS_DICT = {post['id']: post for post in posts}
 
 
 def index(request):
-    return render(request, 'blog/index.html', {'posts': POSTS[::-1]})
+    return render(request, 'blog/index.html', {'posts': posts[::-1]})
 
 
 def post_detail(request, post_id):
