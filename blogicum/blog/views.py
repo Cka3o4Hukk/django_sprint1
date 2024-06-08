@@ -53,7 +53,7 @@ def index(request):
 
 
 def post_detail(request, post_id):
-    if post_id not in POSTS_DICT.keys():
+    if post_id not in POSTS_DICT:
         raise Http404("Post not found")
     return render(request, 'blog/detail.html', {'post': POSTS_DICT[post_id]})
 
